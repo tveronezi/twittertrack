@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Set;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement
@@ -23,8 +24,13 @@ public class Tweet implements Comparable<Tweet>, Serializable {
     private String link;
 
     @XmlElement
-    private String user;
+    private TweetUser user;
 
+    @XmlElement
+    private TweetUser author;
+
+    @XmlElement
+    private Set<TweetUser> mentions;
 
     public String getId() {
         return id;
@@ -58,12 +64,28 @@ public class Tweet implements Comparable<Tweet>, Serializable {
         this.link = link;
     }
 
-    public String getUser() {
+    public TweetUser getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(TweetUser user) {
         this.user = user;
+    }
+
+    public TweetUser getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(TweetUser author) {
+        this.author = author;
+    }
+
+    public Set<TweetUser> getMentions() {
+        return mentions;
+    }
+
+    public void setMentions(Set<TweetUser> mentions) {
+        this.mentions = mentions;
     }
 
     @Override

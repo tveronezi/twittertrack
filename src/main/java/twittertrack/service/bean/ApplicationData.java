@@ -83,7 +83,7 @@ public class ApplicationData {
     public void updateTweets(List<Tweet> userTweets) {
         final Map<String, Set<Tweet>> map = tweets.getUserTweets();
         for (Tweet tweet : userTweets) {
-            final Set<Tweet> myTweets = map.get(tweet.getUser());
+            final Set<Tweet> myTweets = map.get(tweet.getUser().getName());
             myTweets.add(tweet);
         }
     }

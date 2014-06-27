@@ -23,6 +23,7 @@ import twittertrack.service.ApplicationException;
 import twittertrack.service.JsonUtil;
 import twittertrack.service.MapBuilder;
 import twittertrack.service.data.Tweet;
+import twittertrack.service.data.TweetUser;
 
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
@@ -32,6 +33,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -74,7 +76,9 @@ public class TwitterImpl {
             final String id = json.get("id").toString();
             final Tweet tweet = new Tweet();
             tweet.setId(id);
-            tweet.setUser(user);
+            tweet.setUser(buildUser(user));
+            tweet.setAuthor(buildOriginalUser(json));
+            tweet.setMentions(buildMentions(json));
             tweet.setContent(json.get("text").toString());
             tweet.setCreatedAt(SIMPLE_DATE_FORMAT.parse(json.get("created_at").toString()).getTime());
             tweet.setLink(MessageFormat.format(LINK_PATTERN, user, id));
@@ -82,6 +86,43 @@ public class TwitterImpl {
         } catch (ParseException e) {
             throw new ApplicationException(e);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private Set<TweetUser> buildMentions(Map<String, Object> json) {
+        if (!json.containsKey("entities")) {
+            return null;
+        }
+        final Map<String, Object> entities = (Map<String, Object>) json.get("entities");
+        if (!entities.containsKey("user_mentions")) {
+            return null;
+        }
+        final List<Map<String, Object>> mentions = (List<Map<String, Object>>) entities.get("user_mentions");
+        final Set<TweetUser> users = new HashSet<>();
+        for (Map<String, Object> user : mentions) {
+            users.add(buildUser(user));
+        }
+        return users;
+    }
+
+    @SuppressWarnings("unchecked")
+    private TweetUser buildOriginalUser(Map<String, Object> json) {
+        if (!json.containsKey("retweeted_status")) {
+            return null;
+        }
+        final Map<String, Object> status = (Map<String, Object>) json.get("retweeted_status");
+        final Map<String, Object> user = (Map<String, Object>) status.get("user");
+        return buildUser(user);
+    }
+
+    private TweetUser buildUser(Map<String, Object> json) {
+        return buildUser(String.valueOf(json.get("screen_name")));
+    }
+
+    private TweetUser buildUser(String name) {
+        final TweetUser user = new TweetUser();
+        user.setName(name);
+        return user;
     }
 
 }
