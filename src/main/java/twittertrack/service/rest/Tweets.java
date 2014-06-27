@@ -18,25 +18,26 @@
 
 package twittertrack.service.rest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import twittertrack.service.bean.ApplicationData;
+import twittertrack.service.data.Tweet;
 
+import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
+import java.util.Set;
 
-@Path("/keep-alive")
+@Path("/tweets")
 @Produces("application/json")
-public class KeepAlive {
+public class Tweets {
 
-    private final Logger log = LoggerFactory.getLogger("twittertrack");
+    @EJB
+    private ApplicationData applicationData;
 
     @GET
     @Produces("application/json")
-    public Response ping() {
-        log.debug("Ping... pong!");
-        return Response.ok().build();
+    public Set<Tweet> list() {
+        return this.applicationData.getLoadedTweets();
     }
 
 }

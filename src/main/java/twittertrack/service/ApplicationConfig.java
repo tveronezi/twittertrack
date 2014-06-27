@@ -19,6 +19,7 @@
 package twittertrack.service;
 
 import twittertrack.service.rest.KeepAlive;
+import twittertrack.service.rest.Tweets;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -31,6 +32,7 @@ public class ApplicationConfig extends Application {
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> clsSet = new HashSet<Class<?>>();
         clsSet.add(KeepAlive.class);
+        clsSet.add(Tweets.class);
         return clsSet;
     }
 
