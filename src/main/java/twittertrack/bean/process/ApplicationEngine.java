@@ -16,13 +16,15 @@
  *  limitations under the License.
  */
 
-package twittertrack.service.bean;
+package twittertrack.bean.process;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import twittertrack.service.ApplicationException;
-import twittertrack.service.data.Tweet;
-import twittertrack.service.data.Tweets;
+import twittertrack.ApplicationException;
+import twittertrack.bean.data.ApplicationData;
+import twittertrack.bean.data.TweetsData;
+import twittertrack.data.Tweet;
+import twittertrack.data.Tweets;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -45,7 +47,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Singleton
-@DependsOn({"ApplicationData", "TwitterRobot"})
+@DependsOn({"ApplicationData", "TweetsData"})
 @Startup
 public class ApplicationEngine {
 
@@ -53,6 +55,9 @@ public class ApplicationEngine {
 
     @EJB
     private ApplicationData applicationData;
+
+    @EJB
+    private TweetsData tweetsData;
 
     @EJB
     private TwitterRobot twitterRobot;
@@ -72,7 +77,7 @@ public class ApplicationEngine {
                 }
             }
             tweets.setUserTweets(userTweets);
-            this.applicationData.setTweets(tweets);
+            this.tweetsData.setTweets(tweets);
         }
         twitterRobot.fire();
     }
@@ -80,7 +85,7 @@ public class ApplicationEngine {
     @PreDestroy
     public void shutdown() {
         try (final ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(getTweetsFile()))) {
-            out.writeObject(this.applicationData.getTweets());
+            out.writeObject(this.tweetsData.getTweets());
         } catch (IOException e) {
             log.warn("Impossible to save preloaded tweets.", e);
         }
@@ -103,7 +108,7 @@ public class ApplicationEngine {
             return false;
         }
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(tweetsFile))) {
-            this.applicationData.setTweets(Tweets.class.cast(in.readObject()));
+            this.tweetsData.setTweets(Tweets.class.cast(in.readObject()));
         } catch (IOException | ClassNotFoundException e) {
             log.warn("Impossible to load tweets from disk", e);
         }

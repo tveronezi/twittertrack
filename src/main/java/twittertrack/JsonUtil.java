@@ -1,4 +1,4 @@
-package twittertrack.service;
+package twittertrack;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

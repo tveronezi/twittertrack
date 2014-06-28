@@ -1,1 +1,237 @@
-[{"created_at":"Tue Jun 03 08:50:50 +0000 2014","id":473748631128793089,"id_str":"473748631128793089","text":"RT @dblevins: Huge congrats to @dvlc_ on delivering the first ever @ApacheTomEE talk in Brazil! http:\/\/t.co\/q9M78wpw2G You rock \/\/ #TDC2014\u2026","source":"\u003ca href=\"https:\/\/dev.twitter.com\/docs\/tfw\" rel=\"nofollow\"\u003eTwitter for Websites\u003c\/a\u003e","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"user":{"id":492997761,"id_str":"492997761","name":"Thiago Veronezi","screen_name":"tveronezi","location":"Montr\u00e9al","description":"Passionate JavaEE (see #TomEE \/ #OpenEJB) and JavaScript developer.","url":null,"entities":{"description":{"urls":[]}},"protected":false,"followers_count":66,"friends_count":87,"listed_count":3,"created_at":"Wed Feb 15 10:26:04 +0000 2012","favourites_count":6,"utc_offset":null,"time_zone":null,"geo_enabled":false,"verified":false,"statuses_count":48,"lang":"en","contributors_enabled":false,"is_translator":false,"is_translation_enabled":false,"profile_background_color":"C0DEED","profile_background_image_url":"http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_image_url_https":"https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","profile_background_tile":false,"profile_image_url":"http:\/\/pbs.twimg.com\/profile_images\/457522341900079104\/2zvM4jFy_normal.png","profile_image_url_https":"https:\/\/pbs.twimg.com\/profile_images\/457522341900079104\/2zvM4jFy_normal.png","profile_banner_url":"https:\/\/pbs.twimg.com\/profile_banners\/492997761\/1397916980","profile_link_color":"0084B4","profile_sidebar_border_color":"C0DEED","profile_sidebar_fill_color":"DDEEF6","profile_text_color":"333333","profile_use_background_image":true,"default_profile":true,"default_profile_image":false,"following":null,"follow_request_sent":null,"notifications":null},"geo":null,"coordinates":null,"place":null,"contributors":null,"retweeted_status":{"created_at":"Wed May 28 00:29:19 +0000 2014","id":471448093590700032,"id_str":"471448093590700032","text":"Huge congrats to @dvlc_ on delivering the first ever @ApacheTomEE talk in Brazil! http:\/\/t.co\/q9M78wpw2G You rock \/\/ #TDC2014 @cejug","source":"\u003ca href=\"http:\/\/twitter.com\" rel=\"nofollow\"\u003eTwitter Web Client\u003c\/a\u003e","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"user":{"id":34355123,"id_str":"34355123","name":"David Blevins","screen_name":"dblevins","location":"Santa Monica, CA","description":"A founder of the Apache TomEE, OpenEJB and Geronimo projects. JCP participant in JavaEE and EJB. Lightweight JavaEE advocate.","url":"http:\/\/t.co\/mpLagKneOk","entities":{"url":{"urls":[{"url":"http:\/\/t.co\/mpLagKneOk","expanded_url":"http:\/\/tomitribe.com","display_url":"tomitribe.com","indices":[0,22]}]},"description":{"urls":[]}},"protected":false,"followers_count":1288,"friends_count":401,"listed_count":54,"created_at":"Wed Apr 22 18:37:35 +0000 2009","favourites_count":301,"utc_offset":-25200,"time_zone":"Pacific Time (US & Canada)","geo_enabled":true,"verified":false,"statuses_count":3170,"lang":"en","contributors_enabled":false,"is_translator":false,"is_translation_enabled":false,"profile_background_color":"709397","profile_background_image_url":"http:\/\/abs.twimg.com\/images\/themes\/theme6\/bg.gif","profile_background_image_url_https":"https:\/\/abs.twimg.com\/images\/themes\/theme6\/bg.gif","profile_background_tile":false,"profile_image_url":"http:\/\/pbs.twimg.com\/profile_images\/256600041\/headshot_normal.jpg","profile_image_url_https":"https:\/\/pbs.twimg.com\/profile_images\/256600041\/headshot_normal.jpg","profile_banner_url":"https:\/\/pbs.twimg.com\/profile_banners\/34355123\/1357155259","profile_link_color":"FF3300","profile_sidebar_border_color":"86A4A6","profile_sidebar_fill_color":"A0C5C7","profile_text_color":"333333","profile_use_background_image":true,"default_profile":false,"default_profile_image":false,"following":null,"follow_request_sent":null,"notifications":null},"geo":null,"coordinates":null,"place":null,"contributors":null,"retweet_count":10,"favorite_count":7,"entities":{"hashtags":[{"text":"TDC2014","indices":[117,125]}],"symbols":[],"urls":[{"url":"http:\/\/t.co\/q9M78wpw2G","expanded_url":"http:\/\/www.slideshare.net\/danielsoro\/java-ee-com-apache-tom-ee-e-tomee-tdc-2014","display_url":"slideshare.net\/danielsoro\/jav\u2026","indices":[82,104]}],"user_mentions":[{"screen_name":"dvlc_","name":"Daniel Cunha (soro)","id":381810293,"id_str":"381810293","indices":[17,23]},{"screen_name":"ApacheTomEE","name":"Apache TomEE","id":340794553,"id_str":"340794553","indices":[53,65]},{"screen_name":"cejug","name":"cejug","id":13976832,"id_str":"13976832","indices":[126,132]}]},"favorited":false,"retweeted":false,"possibly_sensitive":false,"lang":"en"},"retweet_count":10,"favorite_count":0,"entities":{"hashtags":[{"text":"TDC2014","indices":[131,139]}],"symbols":[],"urls":[{"url":"http:\/\/t.co\/q9M78wpw2G","expanded_url":"http:\/\/www.slideshare.net\/danielsoro\/java-ee-com-apache-tom-ee-e-tomee-tdc-2014","display_url":"slideshare.net\/danielsoro\/jav\u2026","indices":[96,118]}],"user_mentions":[{"screen_name":"dblevins","name":"David Blevins","id":34355123,"id_str":"34355123","indices":[3,12]},{"screen_name":"dvlc_","name":"Daniel Cunha (soro)","id":381810293,"id_str":"381810293","indices":[31,37]},{"screen_name":"ApacheTomEE","name":"Apache TomEE","id":340794553,"id_str":"340794553","indices":[67,79]},{"screen_name":"cejug","name":"cejug","id":13976832,"id_str":"13976832","indices":[139,140]}]},"favorited":false,"retweeted":false,"possibly_sensitive":false,"lang":"en"}]
+[
+    {
+        "created_at": "Tue Jun 03 08:50:50 +0000 2014",
+        "id": 473748631128793089,
+        "id_str": "473748631128793089",
+        "text": "RT @dblevins: Huge congrats to @dvlc_ on delivering the first ever @ApacheTomEE talk in Brazil! http:\/\/t.co\/q9M78wpw2G You rock \/\/ #TDC2014\u2026",
+        "source": "\u003ca href=\"https:\/\/dev.twitter.com\/docs\/tfw\" rel=\"nofollow\"\u003eTwitter for Websites\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 492997761,
+            "id_str": "492997761",
+            "name": "Thiago Veronezi",
+            "screen_name": "tveronezi",
+            "location": "Montr\u00e9al",
+            "description": "Passionate JavaEE (see #TomEE \/ #OpenEJB) and JavaScript developer.",
+            "url": null,
+            "entities": {
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 66,
+            "friends_count": 87,
+            "listed_count": 3,
+            "created_at": "Wed Feb 15 10:26:04 +0000 2012",
+            "favourites_count": 6,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 48,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png",
+            "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/457522341900079104\/2zvM4jFy_normal.png",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/457522341900079104\/2zvM4jFy_normal.png",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/492997761\/1397916980",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+            "created_at": "Wed May 28 00:29:19 +0000 2014",
+            "id": 471448093590700032,
+            "id_str": "471448093590700032",
+            "text": "Huge congrats to @dvlc_ on delivering the first ever @ApacheTomEE talk in Brazil! http:\/\/t.co\/q9M78wpw2G You rock \/\/ #TDC2014 @cejug",
+            "source": "\u003ca href=\"http:\/\/twitter.com\" rel=\"nofollow\"\u003eTwitter Web Client\u003c\/a\u003e",
+            "truncated": false,
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "in_reply_to_screen_name": null,
+            "user": {
+                "id": 34355123,
+                "id_str": "34355123",
+                "name": "David Blevins",
+                "screen_name": "dblevins",
+                "location": "Santa Monica, CA",
+                "description": "A founder of the Apache TomEE, OpenEJB and Geronimo projects. JCP participant in JavaEE and EJB. Lightweight JavaEE advocate.",
+                "url": "http:\/\/t.co\/mpLagKneOk",
+                "entities": {
+                    "url": {
+                        "urls": [
+                            {
+                                "url": "http:\/\/t.co\/mpLagKneOk",
+                                "expanded_url": "http:\/\/tomitribe.com",
+                                "display_url": "tomitribe.com",
+                                "indices": [0, 22]
+                            }
+                        ]
+                    },
+                    "description": {
+                        "urls": []
+                    }
+                },
+                "protected": false,
+                "followers_count": 1288,
+                "friends_count": 401,
+                "listed_count": 54,
+                "created_at": "Wed Apr 22 18:37:35 +0000 2009",
+                "favourites_count": 301,
+                "utc_offset": -25200,
+                "time_zone": "Pacific Time (US & Canada)",
+                "geo_enabled": true,
+                "verified": false,
+                "statuses_count": 3170,
+                "lang": "en",
+                "contributors_enabled": false,
+                "is_translator": false,
+                "is_translation_enabled": false,
+                "profile_background_color": "709397",
+                "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme6\/bg.gif",
+                "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme6\/bg.gif",
+                "profile_background_tile": false,
+                "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/256600041\/headshot_normal.jpg",
+                "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/256600041\/headshot_normal.jpg",
+                "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/34355123\/1357155259",
+                "profile_link_color": "FF3300",
+                "profile_sidebar_border_color": "86A4A6",
+                "profile_sidebar_fill_color": "A0C5C7",
+                "profile_text_color": "333333",
+                "profile_use_background_image": true,
+                "default_profile": false,
+                "default_profile_image": false,
+                "following": null,
+                "follow_request_sent": null,
+                "notifications": null
+            },
+            "geo": null,
+            "coordinates": null,
+            "place": null,
+            "contributors": null,
+            "retweet_count": 10,
+            "favorite_count": 7,
+            "entities": {
+                "hashtags": [
+                    {
+                        "text": "TDC2014",
+                        "indices": [117, 125]
+                    }
+                ],
+                "symbols": [],
+                "urls": [
+                    {
+                        "url": "http:\/\/t.co\/q9M78wpw2G",
+                        "expanded_url": "http:\/\/www.slideshare.net\/danielsoro\/java-ee-com-apache-tom-ee-e-tomee-tdc-2014",
+                        "display_url": "slideshare.net\/danielsoro\/jav\u2026",
+                        "indices": [82, 104]
+                    }
+                ],
+                "user_mentions": [
+                    {
+                        "screen_name": "dvlc_",
+                        "name": "Daniel Cunha (soro)",
+                        "id": 381810293,
+                        "id_str": "381810293",
+                        "indices": [17, 23]
+                    },
+                    {
+                        "screen_name": "ApacheTomEE",
+                        "name": "Apache TomEE",
+                        "id": 340794553,
+                        "id_str": "340794553",
+                        "indices": [53, 65]
+                    },
+                    {
+                        "screen_name": "cejug",
+                        "name": "cejug",
+                        "id": 13976832,
+                        "id_str": "13976832",
+                        "indices": [126, 132]
+                    }
+                ]
+            },
+            "favorited": false,
+            "retweeted": false,
+            "possibly_sensitive": false,
+            "lang": "en"
+        },
+        "retweet_count": 10,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "TDC2014",
+                    "indices": [131, 139]
+                }
+            ],
+            "symbols": [],
+            "urls": [
+                {
+                    "url": "http:\/\/t.co\/q9M78wpw2G",
+                    "expanded_url": "http:\/\/www.slideshare.net\/danielsoro\/java-ee-com-apache-tom-ee-e-tomee-tdc-2014",
+                    "display_url": "slideshare.net\/danielsoro\/jav\u2026",
+                    "indices": [96, 118]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "dblevins",
+                    "name": "David Blevins",
+                    "id": 34355123,
+                    "id_str": "34355123",
+                    "indices": [3, 12]
+                },
+                {
+                    "screen_name": "dvlc_",
+                    "name": "Daniel Cunha (soro)",
+                    "id": 381810293,
+                    "id_str": "381810293",
+                    "indices": [31, 37]
+                },
+                {
+                    "screen_name": "ApacheTomEE",
+                    "name": "Apache TomEE",
+                    "id": 340794553,
+                    "id_str": "340794553",
+                    "indices": [67, 79]
+                },
+                {
+                    "screen_name": "cejug",
+                    "name": "cejug",
+                    "id": 13976832,
+                    "id_str": "13976832",
+                    "indices": [139, 140]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    }
+]

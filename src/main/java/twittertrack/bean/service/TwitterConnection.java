@@ -16,27 +16,14 @@
  *  limitations under the License.
  */
 
-package twittertrack.service.rest;
+package twittertrack.bean.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Map;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
+public interface TwitterConnection {
 
-@Path("/keep-alive")
-@Produces("application/json")
-public class KeepAlive {
+    String USER_TIMELINE_URL = "https://api.twitter.com/1.1/statuses/user_timeline.json";
 
-    private final Logger log = LoggerFactory.getLogger("twittertrack");
-
-    @GET
-    @Produces("application/json")
-    public Response ping() {
-        log.debug("Ping... pong!");
-        return Response.ok().build();
-    }
+    String executeGet(String url, Map<String, String> parameters);
 
 }

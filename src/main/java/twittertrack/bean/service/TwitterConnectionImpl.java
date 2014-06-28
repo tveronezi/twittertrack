@@ -16,7 +16,7 @@
  *  limitations under the License.
  */
 
-package twittertrack.service.bean;
+package twittertrack.bean.service;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.client.fluent.Form;
@@ -24,7 +24,8 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import twittertrack.service.ApplicationException;
+import twittertrack.ApplicationException;
+import twittertrack.bean.data.ApplicationData;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

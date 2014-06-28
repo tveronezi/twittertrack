@@ -1,4 +1,4 @@
-package twittertrack.service;
+package twittertrack;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -16,11 +16,13 @@
  *  limitations under the License.
  */
 
-package twittertrack.service.bean;
+package twittertrack.bean.process;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import twittertrack.service.data.Tweet;
+import twittertrack.bean.data.TweetsData;
+import twittertrack.bean.service.TwitterImpl;
+import twittertrack.data.Tweet;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -44,7 +46,7 @@ public class TwitterRobot {
     private TimerService timerService;
 
     @EJB
-    private ApplicationData applicationData;
+    private TweetsData tweetsData;
 
     @EJB
     private TwitterImpl twitter;
@@ -52,13 +54,13 @@ public class TwitterRobot {
     @Timeout
     public void fire() {
         final List<Future<List<Tweet>>> processes = new ArrayList<>();
-        for (String user : applicationData.getUsers()) {
+        for (String user : this.tweetsData.getUsers()) {
             processes.add(twitter.getTweets(user));
         }
         for (Future<List<Tweet>> process : processes) {
             try {
                 final List<Tweet> tweets = process.get(1, TimeUnit.MINUTES);
-                this.applicationData.updateTweets(tweets);
+                this.tweetsData.updateTweets(tweets);
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 log.warn("Error while processing user tweets", e);
             }

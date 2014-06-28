@@ -16,10 +16,10 @@
  *  limitations under the License.
  */
 
-package twittertrack.service.rest;
+package twittertrack.rest;
 
-import twittertrack.service.bean.ApplicationData;
-import twittertrack.service.data.Tweet;
+import twittertrack.bean.data.TweetsData;
+import twittertrack.data.Tweet;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -32,12 +32,12 @@ import java.util.Set;
 public class Tweets {
 
     @EJB
-    private ApplicationData applicationData;
+    private TweetsData tweetsData;
 
     @GET
     @Produces("application/json")
     public Set<Tweet> list() {
-        return this.applicationData.getLoadedTweets();
+        return this.tweetsData.getLoadedTweets();
     }
 
 }

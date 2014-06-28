@@ -16,20 +16,20 @@
  *  limitations under the License.
  */
 
-package twittertrack.service.bean;
+package twittertrack.bean.service;
 
 import org.json.JSONArray;
-import twittertrack.service.ApplicationException;
-import twittertrack.service.JsonUtil;
-import twittertrack.service.MapBuilder;
-import twittertrack.service.data.Tweet;
-import twittertrack.service.data.TweetUser;
+import twittertrack.ApplicationException;
+import twittertrack.JsonUtil;
+import twittertrack.MapBuilder;
+import twittertrack.bean.data.TweetsData;
+import twittertrack.data.Tweet;
+import twittertrack.data.TweetUser;
 
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,34 +44,39 @@ public class TwitterImpl {
 
     public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy");
     public static final String TWEETS = "30";
-    private static final String LINK_PATTERN = "https://twitter.com/{0}/status/{1}";
 
     @EJB
     private TwitterConnection connection;
 
     @EJB
-    private ApplicationData applicationData;
+    private TweetsData tweetsData;
 
-    @SuppressWarnings("unchecked")
     @Asynchronous
     public Future<List<Tweet>> getTweets(String user) {
         final MapBuilder params = new MapBuilder()
                 .put("screen_name", user)
                 .put("count", TWEETS);
-        final Set<Tweet> tweetSet = this.applicationData.getTweets(user);
+        final Set<Tweet> tweetSet = this.tweetsData.getTweets(user);
         if (!tweetSet.isEmpty()) {
             params.put("since_id", tweetSet.iterator().next().getId());
         }
         final String json = this.connection.executeGet(TwitterConnection.USER_TIMELINE_URL, params.getMap());
-        final List<Object> parsed = JsonUtil.getList(new JSONArray(json));
-        final List<Tweet> result = new ArrayList<>();
-        for (Object jsonObj : parsed) {
-            result.add(buildTweetObject((Map<String, Object>) jsonObj, user));
-        }
-        return new AsyncResult<>(result);
+        return new AsyncResult<>(buildTweetsList(json));
     }
 
-    private Tweet buildTweetObject(Map<String, Object> json, String user) {
+    @SuppressWarnings("unchecked")
+    public List<Tweet> buildTweetsList(String jsonText) {
+        final List<Object> parsed = JsonUtil.getList(new JSONArray(jsonText));
+        final List<Tweet> result = new ArrayList<>();
+        for (Object jsonObj : parsed) {
+            result.add(buildTweetObject((Map<String, Object>) jsonObj));
+        }
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private Tweet buildTweetObject(Map<String, Object> json) {
+        final Map<String, Object> user = (Map<String, Object>) json.get("user");
         try {
             final String id = json.get("id").toString();
             final Tweet tweet = new Tweet();
@@ -81,7 +86,6 @@ public class TwitterImpl {
             tweet.setMentions(buildMentions(json));
             tweet.setContent(json.get("text").toString());
             tweet.setCreatedAt(SIMPLE_DATE_FORMAT.parse(json.get("created_at").toString()).getTime());
-            tweet.setLink(MessageFormat.format(LINK_PATTERN, user, id));
             return tweet;
         } catch (ParseException e) {
             throw new ApplicationException(e);

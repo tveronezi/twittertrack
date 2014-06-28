@@ -1,4 +1,4 @@
-package twittertrack.service.data;
+package twittertrack.data;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -19,9 +19,6 @@ public class Tweet implements Comparable<Tweet>, Serializable {
 
     @XmlElement
     private Long createdAt;
-
-    @XmlElement
-    private String link;
 
     @XmlElement
     private TweetUser user;
@@ -54,14 +51,6 @@ public class Tweet implements Comparable<Tweet>, Serializable {
 
     public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     public TweetUser getUser() {

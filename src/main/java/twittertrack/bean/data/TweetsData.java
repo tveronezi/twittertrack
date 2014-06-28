@@ -16,47 +16,24 @@
  *  limitations under the License.
  */
 
-package twittertrack.service.bean;
+package twittertrack.bean.data;
 
-import twittertrack.service.data.Tweet;
-import twittertrack.service.data.Tweets;
+import twittertrack.data.Tweet;
+import twittertrack.data.Tweets;
 
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
-import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
 @Singleton
-public class ApplicationData {
+public class TweetsData {
 
-    public static final File DEFAULT_TWITTER_PROPS = new File(System.getProperty("user.home"), "twitter.properties");
-    public static final String TWITTER_PROPS = System.getProperty(
-            "twitter_properties", DEFAULT_TWITTER_PROPS.getPath()
-    );
-
-    public static final String TWITTER_API_KEY = "api_key";
-    public static final String TWITTER_API_SECRET = "api_secret";
-    public static final String TWITTER_API_BEARER_TOKEN = "api_bearer_token";
-    public static final String TWITTER_USERS = "twitter_users";
-
-    private Properties twitterProperties = new Properties();
     private Tweets tweets;
-
-    @Lock(LockType.READ)
-    public String getTwitterProperty(String key) {
-        return this.twitterProperties.getProperty(key);
-    }
-
-    @Lock(LockType.WRITE)
-    public void setTwitterProperties(Properties properties) {
-        this.twitterProperties.putAll(properties);
-    }
 
     @Lock(LockType.READ)
     public Set<Tweet> getTweets(String user) {
@@ -80,10 +57,20 @@ public class ApplicationData {
     }
 
     @Lock(LockType.WRITE)
+    public void addUser(String user) {
+        final Map<String, Set<Tweet>> map = tweets.getUserTweets();
+        if (!map.containsKey(user)) {
+            map.put(user, new TreeSet<Tweet>());
+        }
+    }
+
+    @Lock(LockType.WRITE)
     public void updateTweets(List<Tweet> userTweets) {
         final Map<String, Set<Tweet>> map = tweets.getUserTweets();
         for (Tweet tweet : userTweets) {
-            final Set<Tweet> myTweets = map.get(tweet.getUser().getName());
+            final String userName = tweet.getUser().getName();
+            addUser(userName); // making sure we map this user
+            final Set<Tweet> myTweets = map.get(userName);
             myTweets.add(tweet);
         }
     }

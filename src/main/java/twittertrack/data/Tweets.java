@@ -1,4 +1,4 @@
-package twittertrack.service.data;
+package twittertrack.data;
 
 import java.io.Serializable;
 import java.util.HashMap;

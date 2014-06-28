@@ -3,12 +3,12 @@ package twittertrack.tests;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Test;
-import twittertrack.service.MapBuilder;
-import twittertrack.service.bean.ApplicationData;
-import twittertrack.service.bean.TwitterConnection;
-import twittertrack.service.bean.TwitterImpl;
-import twittertrack.service.data.Tweet;
-import twittertrack.service.data.Tweets;
+import twittertrack.MapBuilder;
+import twittertrack.bean.data.TweetsData;
+import twittertrack.bean.service.TwitterConnection;
+import twittertrack.bean.service.TwitterImpl;
+import twittertrack.data.Tweet;
+import twittertrack.data.Tweets;
 
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;
@@ -31,12 +31,13 @@ public class TestTwitterRequest {
     public void testRequest() throws NamingException {
         Context context = EJBContainer.createEJBContainer().getContext();
         TwitterConnection twitter = (TwitterConnection) context.lookup(JNDI);
-        String expected = loadContent("/1_tweet.json");
-        String result = twitter.executeGet(TwitterConnection.USER_TIMELINE_URL, new MapBuilder()
+        TwitterImpl impl = new TwitterImpl();
+        List<Tweet> expected = impl.buildTweetsList(loadContent("/1_tweet.json"));
+        List<Tweet> result = impl.buildTweetsList(twitter.executeGet(TwitterConnection.USER_TIMELINE_URL, new MapBuilder()
                         .put("screen_name", "tveronezi")
                         .put("count", "1")
                         .getMap()
-        );
+        ));
         Assert.assertEquals(expected, result);
     }
 
@@ -51,11 +52,11 @@ public class TestTwitterRequest {
         EasyMock.expectLastCall().andReturn(loadContent("/30_tweets.json"));
         EasyMock.replay(connection);
         TwitterImpl twitter = new TwitterImpl();
-        ApplicationData data = new ApplicationData();
+        TweetsData data = new TweetsData();
         data.setTweets(new Tweets());
         data.getTweets().getUserTweets().put("tveronezi", new HashSet<Tweet>());
         ReflectionUtil.setProperty("connection", connection, twitter);
-        ReflectionUtil.setProperty("applicationData", data, twitter);
+        ReflectionUtil.setProperty("tweetsData", data, twitter);
         List<Tweet> tweets = twitter.getTweets("tveronezi").get();
         Assert.assertEquals(30, tweets.size());
         Assert.assertEquals(
