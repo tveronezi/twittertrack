@@ -51,7 +51,7 @@ import java.util.TreeSet;
 @Startup
 public class ApplicationEngine {
 
-    private final Logger log = LoggerFactory.getLogger("twittertrack");
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @EJB
     private ApplicationData applicationData;

@@ -30,7 +30,7 @@ import javax.ws.rs.core.Response;
 @Produces("application/json")
 public class KeepAlive {
 
-    private final Logger log = LoggerFactory.getLogger("twittertrack");
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @GET
     @Produces("application/json")

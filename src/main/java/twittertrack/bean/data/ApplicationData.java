@@ -49,4 +49,9 @@ public class ApplicationData {
         this.twitterProperties.putAll(properties);
     }
 
+    @Lock(LockType.WRITE)
+    public void setTwitterProperty(String key, String value) {
+        this.twitterProperties.put(key, value);
+    }
+
 }

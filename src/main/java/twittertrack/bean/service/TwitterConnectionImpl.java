@@ -22,9 +22,11 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twittertrack.ApplicationException;
+import twittertrack.JsonUtil;
 import twittertrack.bean.data.ApplicationData;
 
 import javax.ejb.EJB;
@@ -36,9 +38,9 @@ import java.util.Map;
 @Stateless
 public class TwitterConnectionImpl implements TwitterConnection {
 
-    private static final String OATH_TOKEN_PATH = "https://api.twitter.com/oauth2/token";
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final Logger log = LoggerFactory.getLogger("twittertrack");
+    private static final String OATH_TOKEN_PATH = "https://api.twitter.com/oauth2/token";
 
     @EJB
     private ApplicationData application;
@@ -51,12 +53,16 @@ public class TwitterConnectionImpl implements TwitterConnection {
                 final Request req = Request.Post(OATH_TOKEN_PATH)
                         .addHeader("Authorization", getAuthorizationValue())
                         .bodyForm(Form.form().add("grant_type", "client_credentials").build());
-                result = req.execute().returnContent().asString();
+
+                final String jsonStr = req.execute().returnContent().asString();
+                log.info("New bearer token loaded from '{}'.", OATH_TOKEN_PATH);
+                final Map<String, Object> json = JsonUtil.getMap(new JSONObject(jsonStr));
+                result = (String) json.get("access_token");
+                this.application.setTwitterProperty(ApplicationData.TWITTER_API_BEARER_TOKEN, result);
             } catch (IOException e) {
                 throw new ApplicationException(e);
             }
         } else {
-            log.debug("Using preloaded twitter bearer token.");
             result = existingToken;
         }
         return "Bearer " + result;

@@ -38,7 +38,7 @@ import java.util.concurrent.TimeoutException;
 
 @Singleton
 public class TwitterRobot {
-    private final Logger log = LoggerFactory.getLogger("twittertrack");
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private static final long RELOAD_INTERVAL = TimeUnit.MINUTES.toMillis(5);
 
