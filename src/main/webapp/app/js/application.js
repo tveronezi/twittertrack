@@ -27,10 +27,16 @@
         'app/js/keep-alive',
         'lib/less', 'lib/backbone', 'lib/jquery'
     ];
-    define(deps, function (containerView, tweets, underscore, i18n, ping) {
+    define(deps, function (ContainerView, tweets, underscore, i18n, ping) {
         $.ajaxSetup({ cache: false });
 
         function start() {
+            var containerView = new ContainerView({
+                options: {
+                    model: tweets
+                }
+            });
+
             //Starting the backbone router.
             var Router = Backbone.Router.extend({
                 routes: {
@@ -42,8 +48,6 @@
                 containerView.render();
             });
 
-            tweets.fetch();
-
             //Starting the backbone history.
             Backbone.history.start({
                 pushState: true,
@@ -51,6 +55,12 @@
             });
 
             ping.start();
+            tweets.fetch({
+                success: function () {
+                    containerView.render();
+                    containerView.listenTo(tweets, 'reset add change remove', containerView.render);
+                }
+            });
 
             return {
                 getRouter: function () {

@@ -22,10 +22,10 @@
     var deps = ['app/js/templates', 'app/js/i18n'];
     define(deps, function (templates, i18n) {
 
-        var View = Backbone.View.extend({
+        return Backbone.View.extend({
             el: 'body',
 
-            initialize: function () {
+            initialize: function (config) {
                 var me = this;
                 if (!me.options) {
                     me.options = {};
@@ -34,18 +34,17 @@
 
             render: function () {
                 var me = this;
-                if (me.options.isRendered) {
-                    return;
+                if (!me.options.isRendered) {
+                    me.$el.html(templates.getValue('container', {}));
+                    $(window.document).attr('title', i18n.get('application.name'));
+                    // render it only once
+                    me.options.isRendered = true;
                 }
-                me.$el.html(templates.getValue('container', {}));
-                $(window.document).attr('title', i18n.get('application.name'));
-                // render it only once
-                me.options.isRendered = true;
+
                 return me;
             }
         });
 
-        return new View({});
     });
 }());
 
