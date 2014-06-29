@@ -25,6 +25,13 @@
         var View = Backbone.View.extend({
             el: 'body',
 
+            initialize: function () {
+                var me = this;
+                if (!me.options) {
+                    me.options = {};
+                }
+            },
+
             render: function () {
                 var me = this;
                 if (me.options.isRendered) {

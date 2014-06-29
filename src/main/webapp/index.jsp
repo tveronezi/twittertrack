@@ -22,7 +22,7 @@ limitations under the License.
     <meta charset="utf-8">
     <title>-</title>
     <link href="<c:url value='/app/app.less'/>" rel="stylesheet/less" type="text/css">
-    <script src="<c:url value='/app/lib/require/require.js'/>"></script>
+    <script src="<c:url value='/webjars/requirejs/2.1.14/require.min.js'/>"></script>
     <script type="text/javascript">
         // Save the path to the application. Case the application is not the root context, we should now that.
         // The "c:url" is able to figure it out since forever.
