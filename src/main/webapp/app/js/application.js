@@ -21,12 +21,13 @@
 
     var deps = [
         'app/js/view/container',
+        'app/js/model/tweets',
         'lib/underscore',
         'app/js/i18n',
         'app/js/keep-alive',
         'lib/less', 'lib/backbone', 'lib/jquery'
     ];
-    define(deps, function (containerView, underscore, i18n, ping) {
+    define(deps, function (containerView, tweets, underscore, i18n, ping) {
         $.ajaxSetup({ cache: false });
 
         function start() {
@@ -40,6 +41,8 @@
             router.on("route:home", function () {
                 containerView.render();
             });
+
+            tweets.fetch();
 
             //Starting the backbone history.
             Backbone.history.start({
