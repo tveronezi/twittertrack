@@ -37,7 +37,7 @@ public class Tweets {
     @GET
     @Produces("application/json")
     public Set<Tweet> list() {
-        return this.tweetsData.getLoadedTweets();
+        return tweetsData.getLoadedTweets();
     }
 
 }

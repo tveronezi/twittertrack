@@ -22,6 +22,7 @@ import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Test;
 import twittertrack.MapBuilder;
+import twittertrack.bean.data.ApplicationData;
 import twittertrack.bean.data.TweetsData;
 import twittertrack.bean.service.TwitterConnection;
 import twittertrack.bean.service.TwitterImpl;
@@ -32,9 +33,9 @@ import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;
 import javax.naming.NamingException;
 import java.text.ParseException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
 
 public class TestTwitterRequest {
@@ -62,19 +63,23 @@ public class TestTwitterRequest {
     @Test
     public void testDataParsing() throws ParseException, ExecutionException, InterruptedException {
         TwitterConnection connection = EasyMock.createNiceMock(TwitterConnection.class);
+        final String count = "100";
         connection.executeGet(TwitterConnection.USER_TIMELINE_URL, new MapBuilder()
                         .put("screen_name", "tveronezi")
-                        .put("count", TwitterImpl.TWEETS)
+                        .put("count", count)
                         .getMap()
         );
         EasyMock.expectLastCall().andReturn(loadContent("/30_tweets.json"));
         EasyMock.replay(connection);
         TwitterImpl twitter = new TwitterImpl();
         TweetsData data = new TweetsData();
+        ApplicationData appData = new ApplicationData();
+        appData.setTwitterProperty(ApplicationData.TWITTER_MAX_TWEETS, count);
         data.setTweets(new Tweets());
-        data.getTweets().getUserTweets().put("tveronezi", new HashSet<Tweet>());
+        data.getTweets().getUserTweets().put("tveronezi", new TreeSet<Tweet>());
         ReflectionUtil.setProperty("connection", connection, twitter);
         ReflectionUtil.setProperty("tweetsData", data, twitter);
+        ReflectionUtil.setProperty("applicationData", appData, twitter);
         List<Tweet> tweets = twitter.getTweets("tveronezi").get();
         Assert.assertEquals(30, tweets.size());
         Assert.assertEquals(

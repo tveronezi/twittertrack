@@ -36,22 +36,24 @@ public class ApplicationData {
     public static final String TWITTER_API_SECRET = "api_secret";
     public static final String TWITTER_API_BEARER_TOKEN = "api_bearer_token";
     public static final String TWITTER_USERS = "twitter_users";
+    public static final String TWITTER_MAX_TWEETS = "twitter_max_tweets";
+    public static final int DEFAULT_MAX_TWEETS = 30;
 
     private Properties twitterProperties = new Properties();
 
     @Lock(LockType.READ)
     public String getTwitterProperty(String key) {
-        return this.twitterProperties.getProperty(key);
+        return twitterProperties.getProperty(key);
     }
 
     @Lock(LockType.WRITE)
     public void setTwitterProperties(Properties properties) {
-        this.twitterProperties.putAll(properties);
+        twitterProperties.putAll(properties);
     }
 
     @Lock(LockType.WRITE)
     public void setTwitterProperty(String key, String value) {
-        this.twitterProperties.put(key, value);
+        twitterProperties.put(key, value);
     }
 
 }

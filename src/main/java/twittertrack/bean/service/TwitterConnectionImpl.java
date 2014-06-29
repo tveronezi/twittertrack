@@ -38,7 +38,7 @@ import java.util.Map;
 @Stateless
 public class TwitterConnectionImpl implements TwitterConnection {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private static final String OATH_TOKEN_PATH = "https://api.twitter.com/oauth2/token";
 
@@ -58,7 +58,7 @@ public class TwitterConnectionImpl implements TwitterConnection {
                 log.info("New bearer token loaded from '{}'.", OATH_TOKEN_PATH);
                 final Map<String, Object> json = JsonUtil.getMap(new JSONObject(jsonStr));
                 result = (String) json.get("access_token");
-                this.application.setTwitterProperty(ApplicationData.TWITTER_API_BEARER_TOKEN, result);
+                application.setTwitterProperty(ApplicationData.TWITTER_API_BEARER_TOKEN, result);
             } catch (IOException e) {
                 throw new ApplicationException(e);
             }

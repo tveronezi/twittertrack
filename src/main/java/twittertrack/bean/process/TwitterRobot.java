@@ -38,7 +38,7 @@ import java.util.concurrent.TimeoutException;
 
 @Singleton
 public class TwitterRobot {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private static final long RELOAD_INTERVAL = TimeUnit.MINUTES.toMillis(5);
 
@@ -54,13 +54,13 @@ public class TwitterRobot {
     @Timeout
     public void fire() {
         final List<Future<List<Tweet>>> processes = new ArrayList<>();
-        for (String user : this.tweetsData.getUsers()) {
+        for (String user : tweetsData.getUsers()) {
             processes.add(twitter.getTweets(user));
         }
         for (Future<List<Tweet>> process : processes) {
             try {
                 final List<Tweet> tweets = process.get(1, TimeUnit.MINUTES);
-                this.tweetsData.updateTweets(tweets);
+                tweetsData.updateTweets(tweets);
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 log.warn("Error while processing user tweets", e);
             }

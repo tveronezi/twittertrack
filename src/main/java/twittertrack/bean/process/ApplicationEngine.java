@@ -18,6 +18,7 @@
 
 package twittertrack.bean.process;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twittertrack.ApplicationException;
@@ -43,15 +44,15 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 @Singleton
-@DependsOn({"ApplicationData", "TweetsData"})
+@DependsOn({"ApplicationData", "TweetsData", "TwitterRobot"})
 @Startup
 public class ApplicationEngine {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @EJB
     private ApplicationData applicationData;
@@ -64,12 +65,12 @@ public class ApplicationEngine {
 
     @PostConstruct
     public void startup() {
-        log.debug("Starting application...");
+        log.info("Starting twittertrack...");
         loadTwitterProperties();
         if (!loadPreloadedTweets()) {
             final Tweets tweets = new Tweets();
-            final Map<String, Set<Tweet>> userTweets = new HashMap<>();
-            final String users = this.applicationData.getTwitterProperty(ApplicationData.TWITTER_USERS);
+            final Map<String, SortedSet<Tweet>> userTweets = new HashMap<>();
+            final String users = applicationData.getTwitterProperty(ApplicationData.TWITTER_USERS);
             if (users != null && !"".equals(users.trim())) {
                 for (String raw : users.trim().split(",")) {
                     final String user = raw.trim();
@@ -77,15 +78,16 @@ public class ApplicationEngine {
                 }
             }
             tweets.setUserTweets(userTweets);
-            this.tweetsData.setTweets(tweets);
+            tweetsData.setTweets(tweets);
         }
         twitterRobot.fire();
+        log.info("twittertrack is up and running.");
     }
 
     @PreDestroy
     public void shutdown() {
         try (final ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(getTweetsFile()))) {
-            out.writeObject(this.tweetsData.getTweets());
+            out.writeObject(tweetsData.getTweets());
         } catch (IOException e) {
             log.warn("Impossible to save preloaded tweets.", e);
         }
@@ -108,7 +110,7 @@ public class ApplicationEngine {
             return false;
         }
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(tweetsFile))) {
-            this.tweetsData.setTweets(Tweets.class.cast(in.readObject()));
+            tweetsData.setTweets(Tweets.class.cast(in.readObject()));
         } catch (IOException | ClassNotFoundException e) {
             log.warn("Impossible to load tweets from disk", e);
         }
@@ -144,7 +146,20 @@ public class ApplicationEngine {
                     ApplicationData.TWITTER_PROPS
             );
         }
-        this.applicationData.setTwitterProperties(properties);
+        String maxTweets = String.valueOf(ApplicationData.DEFAULT_MAX_TWEETS);
+        if (properties.getProperty(ApplicationData.TWITTER_MAX_TWEETS) != null) {
+            if (StringUtils.isNumeric(properties.getProperty(ApplicationData.TWITTER_MAX_TWEETS))) {
+                maxTweets = properties.getProperty(ApplicationData.TWITTER_MAX_TWEETS);
+            } else {
+                log.warn("{} is not numeric ['{}']. The system will use the default '{}' value instead.",
+                        ApplicationData.TWITTER_MAX_TWEETS,
+                        properties.getProperty(ApplicationData.TWITTER_MAX_TWEETS),
+                        ApplicationData.DEFAULT_MAX_TWEETS
+                );
+            }
+        }
+        properties.put(ApplicationData.TWITTER_MAX_TWEETS, maxTweets.trim());
+        applicationData.setTwitterProperties(properties);
     }
 
 }

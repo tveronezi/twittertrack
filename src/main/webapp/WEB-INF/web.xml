@@ -21,27 +21,27 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0" metadata-complete="false">
 
-    <display-name>twittertrack</display-name>
+  <display-name>twittertrack</display-name>
 
-    <session-config>
-        <session-timeout>5</session-timeout>
-    </session-config>
+  <session-config>
+    <session-timeout>5</session-timeout>
+  </session-config>
 
-    <!-- The trick is to put all your static files under the same directory and map the "default" servlet to it -->
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/app/*</url-pattern>
-    </servlet-mapping>
+  <!-- The trick is to put all your static files under the same directory and map the "default" servlet to it -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/app/*</url-pattern>
+  </servlet-mapping>
 
-    <!-- Any other request will point to the "index.jsp" page. This way YUI will be abe to manage page transitions
-     at the client side in case the user starts the application from a permalink. -->
-    <servlet>
-        <servlet-name>index</servlet-name>
-        <jsp-file>/index.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>index</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
+  <!-- Any other request will point to the "index.jsp" page. This way YUI will be abe to manage page transitions
+   at the client side in case the user starts the application from a permalink. -->
+  <servlet>
+    <servlet-name>index</servlet-name>
+    <jsp-file>/index.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>index</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
 
 </web-app>

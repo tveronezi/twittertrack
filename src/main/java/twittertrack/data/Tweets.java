@@ -21,16 +21,16 @@ package twittertrack.data;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.SortedSet;
 
 public class Tweets implements Serializable {
-    private Map<String, Set<Tweet>> userTweets = new HashMap<>();
+    private Map<String, SortedSet<Tweet>> userTweets = new HashMap<>();
 
-    public Map<String, Set<Tweet>> getUserTweets() {
+    public Map<String, SortedSet<Tweet>> getUserTweets() {
         return userTweets;
     }
 
-    public void setUserTweets(Map<String, Set<Tweet>> userTweets) {
+    public void setUserTweets(Map<String, SortedSet<Tweet>> userTweets) {
         this.userTweets = userTweets;
     }
 }

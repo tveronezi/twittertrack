@@ -29,7 +29,7 @@ public class MapBuilder {
     }
 
     public MapBuilder put(String key, String value) {
-        this.map.put(key, value);
+        map.put(key, value);
         return this;
     }
 

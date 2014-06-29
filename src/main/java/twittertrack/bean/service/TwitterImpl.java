@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import twittertrack.ApplicationException;
 import twittertrack.JsonUtil;
 import twittertrack.MapBuilder;
+import twittertrack.bean.data.ApplicationData;
 import twittertrack.bean.data.TweetsData;
 import twittertrack.data.Tweet;
 import twittertrack.data.TweetUser;
@@ -37,13 +38,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.concurrent.Future;
 
 @Stateless
 public class TwitterImpl {
 
     public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy");
-    public static final String TWEETS = "30";
 
     @EJB
     private TwitterConnection connection;
@@ -51,16 +52,19 @@ public class TwitterImpl {
     @EJB
     private TweetsData tweetsData;
 
+    @EJB
+    private ApplicationData applicationData;
+
     @Asynchronous
     public Future<List<Tweet>> getTweets(String user) {
         final MapBuilder params = new MapBuilder()
                 .put("screen_name", user)
-                .put("count", TWEETS);
-        final Set<Tweet> tweetSet = this.tweetsData.getTweets(user);
+                .put("count", applicationData.getTwitterProperty(ApplicationData.TWITTER_MAX_TWEETS));
+        final SortedSet<Tweet> tweetSet = tweetsData.getTweets(user);
         if (!tweetSet.isEmpty()) {
-            params.put("since_id", tweetSet.iterator().next().getId());
+            params.put("since_id", tweetSet.first().getId());
         }
-        final String json = this.connection.executeGet(TwitterConnection.USER_TIMELINE_URL, params.getMap());
+        final String json = connection.executeGet(TwitterConnection.USER_TIMELINE_URL, params.getMap());
         return new AsyncResult<>(buildTweetsList(json));
     }
 
