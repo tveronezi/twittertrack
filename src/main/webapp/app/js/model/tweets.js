@@ -19,7 +19,7 @@
 (function () {
     'use strict';
 
-    var deps = ['app/js/model/tweet', 'lib/backbone'];
+    var deps = ['app/js/model/tweet', 'backbone'];
     define(deps, function (Tweet) {
 
         var Tweets = Backbone.Collection.extend({

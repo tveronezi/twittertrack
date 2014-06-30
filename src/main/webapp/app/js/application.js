@@ -22,11 +22,11 @@
     var deps = [
         'app/js/view/container',
         'app/js/model/tweets',
-        'lib/underscore',
+        'underscore',
         'app/js/i18n',
         'app/js/keep-alive',
         'app/js/date-utils',
-        'lib/less', 'lib/backbone', 'lib/jquery', 'lib/jquery-ui'
+        'lib/less', 'backbone', 'lib/jquery', 'lib/jquery-ui'
     ];
     define(deps, function (ContainerView, tweets, underscore, i18n, ping) {
         $.ajaxSetup({ cache: false });

@@ -17,7 +17,7 @@
  "use strict";
  */
 
-define(['lib/underscore', 'app/js/log', 'lib/jquery'], function (underscore) {
+define(['underscore', 'app/js/log', 'lib/jquery'], function (underscore) {
     'use strict';
 
     var DELAY = 1000 * 60 * 4; // 4 minutes

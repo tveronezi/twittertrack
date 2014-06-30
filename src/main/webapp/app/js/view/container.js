@@ -19,7 +19,7 @@
 (function () {
     'use strict';
 
-    var deps = ['app/js/templates', 'app/js/i18n', 'lib/underscore'];
+    var deps = ['app/js/templates', 'app/js/i18n', 'underscore'];
     define(deps, function (templates, i18n, underscore) {
 
         return Backbone.View.extend({
@@ -27,15 +27,29 @@
 
             render: function () {
                 var me = this;
-                if (!me.isRendered) {
+                var tweetsContainer;
+                if (me.isRendered) {
+                    tweetsContainer = me.$el.find('section > div.container-fluid > div.row').first();
+                } else {
                     me.$el.html(templates.getValue('container', {}));
                     $(window.document).attr('title', i18n.get('application.name'));
-                    // render it only once
                     me.isRendered = true;
-                    me.$el.find('section > div.container-fluid > div.row').first().sortable({ handle: "div.panel-heading" });
+                    tweetsContainer = me.$el.find('section > div.container-fluid > div.row').first();
+                    tweetsContainer.sortable({
+                        handle: "div.panel-heading",
+                        update: function () {
+                            if (!window.localStorage) {
+                                return;
+                            }
+                            var users = [];
+                            tweetsContainer.find('div.user-tweets-container').each(function (index, el) {
+                                users.push($(el).data('twitter-account'));
+                            });
+                            window.localStorage.setItem('twittertrack-twitter-accounts', users.join(','));
+                        }
+                    });
                 }
                 me.$el.find('.twitter-list').remove();
-                var tweetsContainer = me.$el.find('section > div.container-fluid > div.row').first();
                 var tweetsMap = {};
                 if (me.model) {
                     me.model.forEach(function (bean) {
@@ -53,13 +67,27 @@
                         });
                     });
                 }
-                underscore.each(tweetsMap, function (myTweets, userName) {
+                var addUserTweets = function (myTweets, userName) {
                     var tweetEl = $(templates.getValue('tweets', {
                         tweets: myTweets,
                         user: userName
                     }));
+                    tweetEl.data('twitter-account', userName);
                     tweetsContainer.append(tweetEl);
-                });
+                };
+                if (window.localStorage) {
+                    var users = window.localStorage.getItem('twittertrack-twitter-accounts');
+                    if (users && users.split(',')) {
+                        underscore.each(users.split(','), function (userName) {
+                            var myTweets = tweetsMap[userName];
+                            if (myTweets) {
+                                addUserTweets(myTweets, userName);
+                            }
+                            delete tweetsMap[userName];
+                        });
+                    }
+                }
+                underscore.each(tweetsMap, addUserTweets);
                 return me;
             }
         });

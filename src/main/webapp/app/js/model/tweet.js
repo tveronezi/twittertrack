@@ -19,7 +19,7 @@
 (function () {
     'use strict';
 
-    var deps = ['lib/underscore', 'lib/backbone'];
+    var deps = ['underscore', 'backbone'];
     define(deps, function (underscore) {
 
         return Backbone.Model.extend({

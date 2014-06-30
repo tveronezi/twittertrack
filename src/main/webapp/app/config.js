@@ -24,13 +24,14 @@ var APP_CONFIG = {
         'lib/jquery': 'webjars/jquery/2.1.1/jquery.min',
         'lib/jquery-ui': 'webjars/jquery-ui/1.11.0/jquery-ui.min',
         'lib/handlebars': 'webjars/handlebars/1.3.0/handlebars.min',
-        'lib/underscore': 'webjars/underscorejs/1.6.0/underscore-min',
+        'underscore': 'webjars/underscorejs/1.6.0/underscore-min',
         'lib/json2': 'webjars/json2/20110223/json2.min',
-        'lib/backbone': 'webjars/backbonejs/1.1.2/backbone-min',
+        'backbone': 'webjars/backbonejs/1.1.2/backbone-min',
         'lib/bootstrap': 'webjars/bootstrap/3.2.0/js/bootstrap.min',
         'moment': 'webjars/momentjs/2.7.0/min/moment.min'
     },
     shim: {
+
         'lib/bootstrap': {
             deps: ['lib/jquery']
         },
@@ -39,20 +40,20 @@ var APP_CONFIG = {
             deps: ['lib/jquery']
         },
 
-        'lib/underscore': {
+        'underscore': {
             exports: '_'
         },
 
-        'lib/backbone': {
-            deps: ['lib/jquery', 'lib/json2', 'lib/underscore']
+        'backbone': {
+            deps: ['lib/jquery', 'lib/json2', 'underscore']
         },
 
         'app/js/templates': {
-            deps: ['lib/underscore', 'app/js/i18n']
+            deps: ['underscore', 'app/js/i18n']
         },
 
         'app/js/models': {
-            deps: ['lib/underscore']
+            deps: ['underscore']
         }
     }
 };
