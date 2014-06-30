@@ -5,12 +5,12 @@ twittertrack
 
 You can run the application by following these simple steps.
 
-1. Create a *twitter.properties* file under your user home directory (See example of file below)
+1. Create a **twitter.properties** file under your user home directory (Example: **/home/tveronezi/twitter.properties**)
 2. Checkout this source code
 3. Go to the root of your application and run *mvn clean install tomee:run*
 4. Open <http://localhost:8080/twittertrack>
 
-### twitter.properties example ###
+### twitter.properties content sample ###
 
     #Twitter API key and secret
     api_key=<YOUR API KEY>
