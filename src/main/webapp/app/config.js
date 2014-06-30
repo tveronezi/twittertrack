@@ -19,25 +19,26 @@
 var APP_CONFIG = {
     baseUrl: window.ux.ROOT_URL,
     paths: {
-        // https://github.com/requirejs/text
         'text': 'webjars/requirejs-text/2.0.10/text',
-
-        // http://lesscss.org/
         'lib/less': 'webjars/less/1.7.0/less.min',
-
-        // http://jquery.com/
         'lib/jquery': 'webjars/jquery/2.1.1/jquery.min',
-
-        // http://handlebarsjs.com/
+        'lib/jquery-ui': 'webjars/jquery-ui/1.11.0/jquery-ui.min',
         'lib/handlebars': 'webjars/handlebars/1.3.0/handlebars.min',
-
         'lib/underscore': 'webjars/underscorejs/1.6.0/underscore-min',
-
         'lib/json2': 'webjars/json2/20110223/json2.min',
-
-        'lib/backbone': 'webjars/backbonejs/1.1.2/backbone-min'
+        'lib/backbone': 'webjars/backbonejs/1.1.2/backbone-min',
+        'lib/bootstrap': 'webjars/bootstrap/3.2.0/js/bootstrap.min',
+        'moment': 'webjars/momentjs/2.7.0/min/moment.min'
     },
     shim: {
+        'lib/bootstrap': {
+            deps: ['lib/jquery']
+        },
+
+        'lib/jquery-ui': {
+            deps: ['lib/jquery']
+        },
+
         'lib/underscore': {
             exports: '_'
         },

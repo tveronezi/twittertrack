@@ -19,28 +19,47 @@
 (function () {
     'use strict';
 
-    var deps = ['app/js/templates', 'app/js/i18n'];
-    define(deps, function (templates, i18n) {
+    var deps = ['app/js/templates', 'app/js/i18n', 'lib/underscore'];
+    define(deps, function (templates, i18n, underscore) {
 
         return Backbone.View.extend({
             el: 'body',
 
-            initialize: function (config) {
-                var me = this;
-                if (!me.options) {
-                    me.options = {};
-                }
-            },
-
             render: function () {
                 var me = this;
-                if (!me.options.isRendered) {
+                if (!me.isRendered) {
                     me.$el.html(templates.getValue('container', {}));
                     $(window.document).attr('title', i18n.get('application.name'));
                     // render it only once
-                    me.options.isRendered = true;
+                    me.isRendered = true;
+                    me.$el.find('section > div.container-fluid > div.row').first().sortable({ handle: "div.panel-heading" });
                 }
-
+                me.$el.find('.twitter-list').remove();
+                var tweetsContainer = me.$el.find('section > div.container-fluid > div.row').first();
+                var tweetsMap = {};
+                if (me.model) {
+                    me.model.forEach(function (bean) {
+                        var user = bean.get('user');
+                        var myTweets = tweetsMap[user];
+                        if (!myTweets) {
+                            myTweets = [];
+                            tweetsMap[user] = myTweets;
+                        }
+                        myTweets.push({
+                            id: bean.get('id'),
+                            user: bean.get('user'),
+                            content: bean.get('content'),
+                            author: bean.get('author')
+                        });
+                    });
+                }
+                underscore.each(tweetsMap, function (myTweets, userName) {
+                    var tweetEl = $(templates.getValue('tweets', {
+                        tweets: myTweets,
+                        user: userName
+                    }));
+                    tweetsContainer.append(tweetEl);
+                });
                 return me;
             }
         });

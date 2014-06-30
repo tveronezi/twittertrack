@@ -1,4 +1,5 @@
-/*!
+/**
+ *
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,25 +14,14 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
+ "use strict";
  */
 
-body {
+define(['moment', 'lib/handlebars'], function (moment) {
+    'use strict';
 
-  section {
-    padding: 10px 0 0 0;
+    Handlebars.registerHelper('formatDate', function (date) {
+        return moment(date).format('YYYY-MM-DD HH:mm:ss');
+    });
 
-    div.tweets {
-      .panel-body {
-        overflow-y: auto;
-        height: 300px;
-      }
-
-      .panel-heading:hover {
-        cursor: move;
-      }
-    }
-  }
-
-
-
-}
+});

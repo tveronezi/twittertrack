@@ -22,8 +22,7 @@ define(['lib/underscore', 'lib/handlebars', 'app/js/log'], function (underscore)
 
     var missing = Handlebars.compile('[!{{key}}!]');
     var messages = {
-        'application.name': 'Using the Twitter API to make an @AppDirect page'
-
+        'application.name': 'TwitterTrack'
     };
 
     underscore.each(underscore.keys(messages), function (key) {

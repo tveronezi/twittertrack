@@ -25,16 +25,15 @@
         'lib/underscore',
         'app/js/i18n',
         'app/js/keep-alive',
-        'lib/less', 'lib/backbone', 'lib/jquery'
+        'app/js/date-utils',
+        'lib/less', 'lib/backbone', 'lib/jquery', 'lib/jquery-ui'
     ];
     define(deps, function (ContainerView, tweets, underscore, i18n, ping) {
         $.ajaxSetup({ cache: false });
 
         function start() {
             var containerView = new ContainerView({
-                options: {
-                    model: tweets
-                }
+                model: tweets
             });
 
             //Starting the backbone router.
@@ -58,7 +57,7 @@
             tweets.fetch({
                 success: function () {
                     containerView.render();
-                    containerView.listenTo(tweets, 'reset add change remove', containerView.render);
+                    containerView.listenTo(tweets, 'reset add change remove', containerView.render, containerView);
                 }
             });
 

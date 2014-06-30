@@ -20,7 +20,8 @@
     'use strict';
 
     var files = [
-        'container'
+        'container',
+        'tweets'
     ];
 
     function loop(values, callback) {

@@ -82,7 +82,7 @@ public class TwitterImpl {
     private Tweet buildTweetObject(Map<String, Object> json) {
         final Map<String, Object> user = (Map<String, Object>) json.get("user");
         try {
-            final String id = json.get("id").toString();
+            final String id = getId(json);
             final Tweet tweet = new Tweet();
             tweet.setId(id);
             tweet.setUser(buildUser(user));
@@ -94,6 +94,15 @@ public class TwitterImpl {
         } catch (ParseException e) {
             throw new ApplicationException(e);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private String getId(Map<String, Object> json) {
+        if (!json.containsKey("retweeted_status")) {
+            return json.get("id").toString();
+        }
+        final Map<String, Object> status = (Map<String, Object>) json.get("retweeted_status");
+        return status.get("id").toString();
     }
 
     @SuppressWarnings("unchecked")

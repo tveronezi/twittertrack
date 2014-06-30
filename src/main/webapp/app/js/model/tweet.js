@@ -34,6 +34,8 @@
                 };
                 if (response.author) {
                     result.author = response.author.name;
+                } else {
+                    result.author = response.user.name;
                 }
                 if (response.mentions) {
                     if (underscore.isArray(response.mentions)) {

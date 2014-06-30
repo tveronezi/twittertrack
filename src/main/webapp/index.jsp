@@ -21,6 +21,8 @@ limitations under the License.
 <head>
     <meta charset="utf-8">
     <title>-</title>
+    <link href="<c:url value='/webjars/bootstrap/3.2.0/css/bootstrap.min.css'/>" rel="stylesheet">
+    <link href="<c:url value='/webjars/jquery-ui/1.11.0/jquery-ui.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/app/app.less'/>" rel="stylesheet/less" type="text/css">
     <script src="<c:url value='/webjars/requirejs/2.1.14/require.min.js'/>"></script>
     <script type="text/javascript">

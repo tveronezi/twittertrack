@@ -1,0 +1,15 @@
+<div class="col-md-4">
+    <div class="panel panel-default tweets">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{user}}</h3>
+        </div>
+        <div class="panel-body">
+            {{#each tweets}}
+                <blockquote>
+                    <p>{{content}}</p>
+                    <footer>{{author}}. [<a href="https://twitter.com/{{author}}/status/{{id}}">{{formatDate createdAt}}</a>]</footer>
+                </blockquote>
+            {{/each}}
+        </div>
+    </div>
+</div>
