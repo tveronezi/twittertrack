@@ -88,7 +88,7 @@ public class TweetsData {
                 final Tweet last = myTweets.last();
                 log.debug("Removing old tweet. https://twitter.com/{}/status/{}",
                         last.getUser().getName(),
-                        last.getId()
+                        last.getIdentifier()
                 );
                 myTweets.remove(last);
             }

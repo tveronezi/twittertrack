@@ -24,10 +24,10 @@
 
         return Backbone.Model.extend({
             urlRoot: window.ux.ROOT_URL + 'rest/tweets',
-            idAttribute: 'id',
+            idAttribute: 'identifier',
             parse: function (response) {
                 var result = {
-                    id: response.id,
+                    id: response.identifier.substring(1),
                     content: response.content,
                     createdAt: new Date(response.createdAt),
                     user: response.user.name

@@ -22,13 +22,25 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement
-public class TweetUser {
+public class TweetUser implements Serializable {
+
+    @XmlElement
+    private String identifier;
 
     @XmlElement
     private String name;
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
 
     public String getName() {
         return name;

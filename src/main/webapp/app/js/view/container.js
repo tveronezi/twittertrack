@@ -63,7 +63,8 @@
                             id: bean.get('id'),
                             user: bean.get('user'),
                             content: bean.get('content'),
-                            author: bean.get('author')
+                            author: bean.get('author'),
+                            user_id: bean.get('userId')
                         });
                     });
                 }

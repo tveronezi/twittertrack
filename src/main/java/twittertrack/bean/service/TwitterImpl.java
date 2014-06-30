@@ -62,7 +62,7 @@ public class TwitterImpl {
                 .put("count", applicationData.getTwitterProperty(ApplicationData.TWITTER_MAX_TWEETS));
         final SortedSet<Tweet> tweetSet = tweetsData.getTweets(user);
         if (!tweetSet.isEmpty()) {
-            params.put("since_id", tweetSet.first().getId());
+            params.put("since_id", tweetSet.first().getIdentifier());
         }
         final String json = connection.executeGet(TwitterConnection.USER_TIMELINE_URL, params.getMap());
         return new AsyncResult<>(buildTweetsList(json));
@@ -82,9 +82,10 @@ public class TwitterImpl {
     private Tweet buildTweetObject(Map<String, Object> json) {
         final Map<String, Object> user = (Map<String, Object>) json.get("user");
         try {
-            final String id = getId(json);
+            final String id = (String) json.get("id_str");
             final Tweet tweet = new Tweet();
-            tweet.setId(id);
+            //The json provider converts it to number. We force it to be a string.
+            tweet.setIdentifier("_" + id);
             tweet.setUser(buildUser(user));
             tweet.setAuthor(buildOriginalUser(json));
             tweet.setMentions(buildMentions(json));
@@ -94,15 +95,6 @@ public class TwitterImpl {
         } catch (ParseException e) {
             throw new ApplicationException(e);
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    private String getId(Map<String, Object> json) {
-        if (!json.containsKey("retweeted_status")) {
-            return json.get("id").toString();
-        }
-        final Map<String, Object> status = (Map<String, Object>) json.get("retweeted_status");
-        return status.get("id").toString();
     }
 
     @SuppressWarnings("unchecked")
@@ -133,11 +125,13 @@ public class TwitterImpl {
     }
 
     private TweetUser buildUser(Map<String, Object> json) {
-        return buildUser(String.valueOf(json.get("screen_name")));
+        return buildUser((String) json.get("id_str"), (String) json.get("screen_name"));
     }
 
-    private TweetUser buildUser(String name) {
+    private TweetUser buildUser(String id, String name) {
         final TweetUser user = new TweetUser();
+        //The json provider converts it to number. We force it to be a string.
+        user.setIdentifier("_" + id);
         user.setName(name);
         return user;
     }

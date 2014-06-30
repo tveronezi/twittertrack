@@ -30,7 +30,7 @@ import java.util.Set;
 public class Tweet implements Comparable<Tweet>, Serializable {
 
     @XmlElement
-    private String id;
+    private String identifier;
 
     @XmlElement
     private String content;
@@ -47,12 +47,12 @@ public class Tweet implements Comparable<Tweet>, Serializable {
     @XmlElement
     private Set<TweetUser> mentions;
 
-    public String getId() {
-        return id;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public String getContent() {
@@ -104,13 +104,13 @@ public class Tweet implements Comparable<Tweet>, Serializable {
             return false;
         }
         final Tweet tweet = (Tweet) o;
-        return this.id.equals(tweet.id);
+        return this.identifier.equals(tweet.identifier);
 
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return identifier.hashCode();
     }
 
 
