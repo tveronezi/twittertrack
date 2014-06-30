@@ -17,7 +17,7 @@ You can run the application by following these simple steps.
     api_secret=<YOUR API SECRET>
 
     #User accounts to be loaded
-    twitter_users=AppDirect,laughingsquid,techcrunch
+    twitter_users=TheASF,ApacheTomEE,tveronezi
 
     #Number max of tweets per user account
     twitter_max_tweets=30
