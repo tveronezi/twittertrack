@@ -43,7 +43,7 @@ public class TweetsData {
     @EJB
     private ApplicationData applicationData;
 
-    private Tweets tweets;
+    private Tweets tweets = new Tweets();
 
     @Lock(LockType.READ)
     public SortedSet<Tweet> getTweets(String user) {

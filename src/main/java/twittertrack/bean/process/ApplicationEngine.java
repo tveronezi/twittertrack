@@ -24,28 +24,17 @@ import org.slf4j.LoggerFactory;
 import twittertrack.ApplicationException;
 import twittertrack.bean.data.ApplicationData;
 import twittertrack.bean.data.TweetsData;
-import twittertrack.data.Tweet;
-import twittertrack.data.Tweets;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.DependsOn;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 @Singleton
 @DependsOn({"ApplicationData", "TweetsData", "TwitterRobot"})
@@ -67,54 +56,19 @@ public class ApplicationEngine {
     public void startup() {
         log.info("Starting twittertrack...");
         loadTwitterProperties();
-        if (!loadPreloadedTweets()) {
-            final Tweets tweets = new Tweets();
-            final Map<String, SortedSet<Tweet>> userTweets = new HashMap<>();
-            final String users = applicationData.getTwitterProperty(ApplicationData.TWITTER_USERS);
-            if (users != null && !"".equals(users.trim())) {
-                for (String raw : users.trim().split(",")) {
-                    final String user = raw.trim();
-                    userTweets.put(user, new TreeSet<Tweet>());
-                }
-            }
-            tweets.setUserTweets(userTweets);
-            tweetsData.setTweets(tweets);
-        }
+        loadUsers();
         twitterRobot.fire();
         log.info("twittertrack is up and running.");
     }
 
-    @PreDestroy
-    public void shutdown() {
-        try (final ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(getTweetsFile()))) {
-            out.writeObject(tweetsData.getTweets());
-        } catch (IOException e) {
-            log.warn("Impossible to save preloaded tweets.", e);
+    private void loadUsers() {
+        final String strUsers = applicationData.getTwitterProperty(ApplicationData.TWITTER_USERS);
+        if (strUsers == null || "".equals(strUsers.trim())) {
+            return;
         }
-    }
-
-    private File getTweetsFile() {
-        final File tempDir = new File(System.getProperty("java.io.tmpdir"), "twittertract");
-        return new File(tempDir, "tweets.bean");
-    }
-
-    private boolean loadPreloadedTweets() {
-        final File tweetsFile = getTweetsFile();
-        final File tempDir = tweetsFile.getParentFile();
-        if (!tempDir.mkdirs() && !tempDir.exists()) {
-            log.warn("'{}' does not exist. Impossible to load tweets from disk.", tempDir.getPath());
-            return false;
+        for (String user : strUsers.trim().split(",")) {
+            tweetsData.addUser(user.trim());
         }
-        if (!tweetsFile.exists()) {
-            log.info("'{}' does not exist. The system does not have preloaded tweets.", tweetsFile.getPath());
-            return false;
-        }
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(tweetsFile))) {
-            tweetsData.setTweets(Tweets.class.cast(in.readObject()));
-        } catch (IOException | ClassNotFoundException e) {
-            log.warn("Impossible to load tweets from disk", e);
-        }
-        return true;
     }
 
     private void loadTwitterProperties() {

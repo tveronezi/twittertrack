@@ -62,7 +62,7 @@ public class TwitterImpl {
                 .put("count", applicationData.getTwitterProperty(ApplicationData.TWITTER_MAX_TWEETS));
         final SortedSet<Tweet> tweetSet = tweetsData.getTweets(user);
         if (!tweetSet.isEmpty()) {
-            params.put("since_id", tweetSet.first().getIdentifier());
+            params.put("since_id", tweetSet.first().getIdentifier().substring(1));
         }
         final String json = connection.executeGet(TwitterConnection.USER_TIMELINE_URL, params.getMap());
         return new AsyncResult<>(buildTweetsList(json));
