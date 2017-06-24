@@ -1,0 +1,33 @@
+@import "variables"
+
+$tweet-border-color: #ededed
+
+div[data-twittertrack-tweets]
+  > div:first-of-type
+    display: flex
+    flex-wrap: wrap
+  div[data-twittertrack-config]
+    position: fixed
+    top: 20px
+    right: 20px
+    border: solid $tweet-border-color 1px
+    &:hover
+      cursor: pointer
+      border-color: darken($tweet-border-color, 20)
+    > div
+      padding: 10px 20px
+      background-color: darken(#ffffff, 10)
+      i
+        color: $app-font-color
+
+.modal.app-config
+  .modal-body
+    > form
+      padding: 20px
+      background-color: #ffffff
+      .form-control
+        width: auto
+        display: inline
+      .form-group
+        input:last-of-type
+          margin-left: 5px

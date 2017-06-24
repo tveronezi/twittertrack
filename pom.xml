@@ -1,299 +1,206 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <groupId>buildnplay</groupId>
+  <groupId>com.veronezi</groupId>
   <artifactId>twittertrack</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>twittertrack</name>
+  <version>0.0.1-SNAPSHOT</version>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-    <tomee.version>1.6.0.2</tomee.version>
-    <openejb.version>4.6.0.2</openejb.version>
-    <javaee.api>6.0-5</javaee.api>
-    <junit.version>4.10</junit.version>
-    <easymock.version>3.2</easymock.version>
-    <arquillian.version>1.0.3.Final</arquillian.version>
-    <json.version>20140107</json.version>
-    <fluent-hc.version>4.3.4</fluent-hc.version>
-
-    <tomee.args>-Xmx512m -XX:PermSize=256m</tomee.args>
+    <tomee.version>7.0.3</tomee.version>
+    <groovy.version>2.4.11</groovy.version>
+    <codenarc.version>0.27.0</codenarc.version>
+    <log4j.version>1.2.17</log4j.version>
   </properties>
-  <repositories>
-    <repository>
-      <id>apache.releases</id>
-      <url>https://repository.apache.org/content/repositories/releases/</url>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <url>http://repository.apache.org/snapshots/</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-      <snapshots>
-        <updatePolicy>daily</updatePolicy>
-      </snapshots>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>apache-m2-release-plugin</id>
-      <url>https://repository.apache.org/content/repositories/releases/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>apache-m2-snapshot-plugin</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://repository.apache.org/snapshots</url>
-    </pluginRepository>
-  </pluginRepositories>
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0-1</version>
     </dependency>
     <dependency>
-      <groupId>org.easymock</groupId>
-      <artifactId>easymock</artifactId>
-      <version>${easymock.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>${json.version}</version>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>${groovy.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>fluent-hc</artifactId>
-      <version>${fluent-hc.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>ziplock</artifactId>
-      <version>${tomee.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>arquillian-tomee-embedded</artifactId>
-      <version>${tomee.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.7</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>openejb-core</artifactId>
-      <version>${openejb.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>${javaee.api}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>backbonejs</artifactId>
-      <version>1.1.2-2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>jquery</artifactId>
-      <version>2.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>handlebars</artifactId>
-      <version>1.3.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>json2</artifactId>
-      <version>20110223</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>less</artifactId>
-      <version>1.7.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>requirejs</artifactId>
-      <version>2.1.14-1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>requirejs-text</artifactId>
-      <version>2.0.10-1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>underscorejs</artifactId>
-      <version>1.6.0-3</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>3.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>momentjs</artifactId>
-      <version>2.7.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>jquery-ui</artifactId>
-      <version>1.11.0</version>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.3</version>
     </dependency>
   </dependencies>
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.14.1</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.10</version>
-        <configuration>
-          <enableRulesSummary>false</enableRulesSummary>
-          <configLocation>src/main/config/checkstyle.xml</configLocation>
-        </configuration>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.codenarc</groupId>
+            <artifactId>CodeNarc</artifactId>
+            <version>${codenarc.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
+            <id>codenarc</id>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <taskdef name="codenarc" classname="org.codenarc.ant.CodeNarcTask" />
+                <codenarc ruleSetFiles="rulesets/basic.xml,rulesets/exceptions.xml,rulesets/imports.xml" maxPriority1Violations="0" maxPriority2Violations="0" maxPriority3Violations="0">
+                  <report type="html">
+                    <option name="outputFile" value="${project.basedir}/target/codenarc/report.html" />
+                    <option name="title" value="${project.groupId} ${project.artifactId}" />
+                  </report>
+                  <fileset dir="src/main/groovy">
+                    <include name="**/*.groovy" />
+                  </fileset>
+                </codenarc>
+              </target>
+            </configuration>
             <goals>
-              <goal>check</goal>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>compile</id>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <mkdir dir="${basedir}/src/main/groovy" />
+                <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
+                  <classpath refid="maven.compile.classpath" />
+                </taskdef>
+                <mkdir dir="${project.build.outputDirectory}" />
+                <groovyc destdir="${project.build.outputDirectory}" srcdir="${basedir}/src/main/groovy/" listfiles="true">
+                  <classpath refid="maven.compile.classpath" />
+                  <javac source="1.7" target="1.7" debug="on" />
+                </groovyc>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <configuration>
+              <target>
+                <mkdir dir="${basedir}/src/test/groovy" />
+                <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
+                  <classpath refid="maven.test.classpath" />
+                </taskdef>
+                <mkdir dir="${project.build.testOutputDirectory}" />
+                <groovyc destdir="${project.build.testOutputDirectory}" srcdir="${basedir}/src/test/groovy/" listfiles="true" verbose="true" stacktrace="true">
+                  <classpath refid="maven.test.classpath" />
+                  <javac source="1.7" target="1.7" debug="on" />
+                </groovyc>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.0.1</version>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.4</version>
         <executions>
           <execution>
             <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.googlecode.jslint4java</groupId>
-        <artifactId>jslint4java-maven-plugin</artifactId>
-        <version>2.0.5</version>
-        <configuration>
-          <failOnError>true</failOnError>
-          <options>
-            <vars>true</vars>
-            <unparam>true</unparam>
-            <predef>define,require,requirejs,window,Backbone,_,$,Handlebars,APP_CONFIG</predef>
-            <indent>4</indent>
-          </options>
-          <sourceFolders>
-            <sourceFolder>${basedir}/src/main/webapp/app/js</sourceFolder>
-          </sourceFolders>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>install</phase>
-            <goals>
-              <goal>lint</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.openejb.maven</groupId>
-        <artifactId>tomee-maven-plugin</artifactId>
-        <version>${tomee.version}</version>
-        <configuration>
-          <context>twittertrack</context>
-          <args>${tomee.args}</args>
-          <tomeeClassifier>plus</tomeeClassifier>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.1.201405082137</version>
-        <executions>
-          <execution>
-            <id>default-prepare-agent</id>
-            <goals>
-              <goal>prepare-agent</goal>
+              <goal>install-node-and-npm</goal>
             </goals>
           </execution>
           <execution>
-            <id>default-report</id>
-            <phase>prepare-package</phase>
+            <id>npm_install</id>
             <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>default-check</id>
-            <goals>
-              <goal>check</goal>
+              <goal>npm</goal>
             </goals>
             <configuration>
-              <rules>
-                <rule>
-                  <element>BUNDLE</element>
-                  <limits>
-                    <limit>
-                      <counter>COMPLEXITY</counter>
-                      <value>COVEREDRATIO</value>
-                      <minimum>0.0</minimum>
-                    </limit>
-                    <limit>
-                      <counter>BRANCH</counter>
-                      <value>COVEREDRATIO</value>
-                      <minimum>0.0</minimum>
-                    </limit>
-                  </limits>
-                </rule>
-              </rules>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm_build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm_dev</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <!-- you need to manually call this to activate the dev build -->
+            <phase/>
+            <configuration>
+              <arguments>run build-dev</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm_test</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>test</phase>
+            <configuration>
+              <arguments>run test</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm_list</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <!-- you need to manually call this to activate the dev build -->
+            <phase/>
+            <configuration>
+              <arguments>list</arguments>
             </configuration>
           </execution>
         </executions>
+        <configuration>
+          <nodeVersion>v7.10.0</nodeVersion>
+          <workingDirectory>src/main/static</workingDirectory>
+          <installDirectory>target</installDirectory>
+          <environmentVariables>
+            <DOC_BASE>${project.basedir}/target/${project.artifactId}-${project.version}/app</DOC_BASE>
+            <DOC_BASE_DEV>${project.basedir}/target/apache-tomee/webapps/ROOT/app</DOC_BASE_DEV>
+          </environmentVariables>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.tomee.maven</groupId>
+        <artifactId>tomee-maven-plugin</artifactId>
+        <version>${tomee.version}</version>
+        <configuration>
+          <tomeeVersion>${tomee.version}</tomeeVersion>
+          <tomeeClassifier>plus</tomeeClassifier>
+          <context>ROOT</context>
+          <systemVariables>
+            <api_key>${env.TWITTER_API_KEY}</api_key>
+            <api_secret>${env.TWITTER_API_SECRET}</api_secret>
+          </systemVariables>
+        </configuration>
       </plugin>
     </plugins>
   </build>
 </project>
+
