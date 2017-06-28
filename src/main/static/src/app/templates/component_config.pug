@@ -7,11 +7,11 @@ ng-template("#menuBodyTemplate"="")
             form("(ngSubmit)"="save()")
                 .form-group
                     input.form-control("[(ngModel)]"="model.columnA.handle", name="handle_a", placeholder="Handle")
-                    input.form-control("[(ngModel)]"="model.columnA.limit", name="limit_a", placeholder="Limit")
+                    input.form-control("[(ngModel)]"="model.columnA.limit", name="limit_a", placeholder="Limit [Default 30]")
                 .form-group
                     input.form-control("[(ngModel)]"="model.columnB.handle", name="handle_b", placeholder="Handle")
-                    input.form-control("[(ngModel)]"="model.columnB.limit", name="limit_b", placeholder="Limit")
+                    input.form-control("[(ngModel)]"="model.columnB.limit", name="limit_b", placeholder="Limit [Default 30]")
                 .form-group
                     input.form-control("[(ngModel)]"="model.columnC.handle", name="handle_c", placeholder="Handle")
-                    input.form-control("[(ngModel)]"="model.columnC.limit", name="limit_c", placeholder="Limit")
-                button.btn.btn-default(type="submit") Save
+                    input.form-control("[(ngModel)]"="model.columnC.limit", name="limit_c", placeholder="Limit [Default 30]")
+                button.btn.btn-primary(type="submit") Save

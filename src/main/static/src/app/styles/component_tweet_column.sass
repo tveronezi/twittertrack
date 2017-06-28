@@ -3,6 +3,11 @@
 $tweet-border-color: #ededed
 
 div[data-twittertrack-tweet-column]
+  $column-margin: 20px
+  > h1
+    margin: $column-margin
+    font-weight: 100
+    text-align: center
   div.tweets
     display: flex
     flex-wrap: wrap
@@ -12,7 +17,7 @@ div[data-twittertrack-tweet-column]
     display: flex
     flex-direction: column
     width: 400px
-    margin: 20px
+    margin: $column-margin
     text-decoration: none
     border: solid $tweet-border-color 1px
     font-family: 'Lato',sans-serif

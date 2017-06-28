@@ -29,11 +29,15 @@ export class TweetsComponent implements OnInit {
     }
 
     onReload() {
-        console.log(`loading data...`);
         this.storage.set('columns', this.model);
-        let columns = [this.model.columnA, this.model.columnB, this.model.columnC].filter((item) => item.handle && item.handle.trim() !== '');
+        let columns = [this.model.columnA, this.model.columnB, this.model.columnC].map((item) => {
+            if(!item.handle) {
+                item.tweets = [];
+            }
+            return item;
+        }).filter((item) => item.handle && item.handle.trim() !== '');
         columns.forEach((column) => {
-            this.twitter.getTweets(column.handle, column.limit).subscribe((data) => {
+            this.twitter.getTweets(column.handle, column.limit ? column.limit :30).subscribe((data) => {
                 column.tweets = data.map((entry) => {
                     entry.date = moment.utc(entry.date, 'YYYYMMDDHHmmss-zzzz').toDate();
                     return entry;
@@ -67,7 +71,7 @@ export class TweetsComponent implements OnInit {
     encapsulation: ViewEncapsulation.None
 })
 export class TweetColumnComponent {
-    @Input() tweets;
+    @Input() model;
 }
 
 @Component({
